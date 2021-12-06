@@ -84,4 +84,19 @@ class ProductsFacade {
         $this->productRepository->persist($product);
     }
 
+    /**
+     * Metóda na uloženie fotky produktu
+     * @param FileUpload $fileUpload
+     * @param Product $product
+     */
+
+    public function saveProductPhoto(FileUpload $fileUpload, Product &$product) {
+        if ($fileUpload->isOk() && $fileUpload->isImage()){
+            $fileExtension=strtolower($fileUpload->getImageFileExtension());
+            $fileUpload->move(__DIR__.'/../../../www/img/products/'.$product->productId.'.'.$fileExtension);
+            $product->photoExtension=$fileExtension;
+            $this->saveProduct($product);
+        }
+    }
+
 }
