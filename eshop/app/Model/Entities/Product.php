@@ -7,7 +7,7 @@ use LeanMapper\Entity;
 /**
  * class Product
  * @package App\Model\Entities
- * @property int $id
+ * @property int $productId
  * @property string $title
  * @property string $description
  * @property string $url
