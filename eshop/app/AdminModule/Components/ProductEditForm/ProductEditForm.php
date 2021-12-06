@@ -46,6 +46,10 @@ class ProductEditForm extends Form {
         $this->productsFacade=$productsFacade;
     }
 
+    /**
+     * Metóda pre vytvorenie komponenty na editáciu produktu
+     */
+
     public function createSubComponents() {
         $productId=$this->addHidden('productId');
         $this->addText('title', 'Název produktu')
@@ -141,6 +145,28 @@ class ProductEditForm extends Form {
             ->onClick[]=function(SubmitButton $button){
             $this->onCancel();
         };
+    }
+
+    /**
+     * Metóda, ktorá nastaví východzie hodnoty z formulára
+     * @param array|object $values
+     * @param bool $erase
+     * @return $this
+     */
+
+    public function setDefaults($values, bool $erase = false):self {
+        if ($values instanceof Product){
+            $values = [
+                'productId'=>$values->productId,
+                'categoryId'=>$values->category?$values->category->categoryId:null,
+                'title'=>$values->title,
+                'url'=>$values->url,
+                'description'=>$values->description,
+                'price'=>$values->price
+            ];
+        }
+        parent::setDefaults($values, $erase);
+        return $this;
     }
 
 }
