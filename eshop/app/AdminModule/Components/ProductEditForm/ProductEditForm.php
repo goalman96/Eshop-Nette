@@ -4,7 +4,6 @@ namespace App\AdminModule\Components\ProductEditForm;
 
 use App\Model\Facades\CategoriesFacade;
 use App\Model\Facades\ProductsFacade;
-use Nette\Forms\Controls\TextInput;
 use Nette\Forms\Form;
 use Nette\SmartObject;
 use Nette\Utils\Strings;
@@ -12,7 +11,11 @@ use Nextras\FormsRendering\Renderers\Bs4FormRenderer;
 use Nextras\FormsRendering\Renderers\FormLayout;
 
 /**
- *
+ * class ProductEditForm
+ * @package App\AdminModule\Components\ProductEditForm
+ * @method onFinished(string $message = '')
+ * @method onFailed(string $message = '')
+ * @method onCancel()
  */
 
 class ProductEditForm extends Form {
@@ -44,6 +47,7 @@ class ProductEditForm extends Form {
         $this->setRenderer(new Bs4FormRenderer(FormLayout::VERTICAL));
         $this->categoriesFacade=$categoriesFacade;
         $this->productsFacade=$productsFacade;
+        $this->createSubComponents();
     }
 
     /**
@@ -52,15 +56,16 @@ class ProductEditForm extends Form {
 
     public function createSubComponents() {
         $productId=$this->addHidden('productId');
-        $this->addText('title', 'Název produktu')
-            ->setRequired(true)
+        $this->addText('title','Název produktu')
+            ->setRequired('Musíte zadat název produktu')
             ->setMaxLength(100);
-        $this->addText('url', 'URL produktu')
+
+        $this->addText('url','URL produktu')
             ->setMaxLength(100)
-            ->addFilter(function (string $url) {
-                    return Strings::webalize($url);
-                }
-            )->addRule(function(Nette\Forms\Controls\TextInput $input)use($productId){
+            ->addFilter(function(string $url){
+                return Nette\Utils\Strings::webalize($url);
+            })
+            ->addRule(function(Nette\Forms\Controls\TextInput $input)use($productId){
                 try{
                     $existingProduct = $this->productsFacade->getProductByUrl($input->value);
                     return $existingProduct->productId==$productId->value;
@@ -69,6 +74,7 @@ class ProductEditForm extends Form {
                 }
             },'Zvolená URL je již obsazena jiným produktem');
 
+        #region kategorie
         $categories=$this->categoriesFacade->findCategories();
         $categoriesArr=[];
         foreach ($categories as $category){
@@ -77,6 +83,7 @@ class ProductEditForm extends Form {
         $this->addSelect('categoryId','Kategorie',$categoriesArr)
             ->setPrompt('--vyberte kategorii--')
             ->setRequired(false);
+        #endregion kategorie
 
         $this->addTextArea('description', 'Popis produktu')
             ->setRequired('Zadejte popis produktu.');
