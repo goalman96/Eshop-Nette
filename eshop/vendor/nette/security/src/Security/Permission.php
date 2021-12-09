@@ -574,9 +574,6 @@ class Permission implements Authorizator
 	{
 		$this->queriedRole = $role;
 		if ($role !== self::ALL) {
-			if ($role instanceof Role) {
-				$role = $role->getRoleId();
-			}
 			$this->checkRole($role);
 		}
 
