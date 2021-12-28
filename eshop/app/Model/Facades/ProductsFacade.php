@@ -17,6 +17,16 @@ class ProductsFacade {
     }
 
     /**
+     * Metoda pro načtení jednoho uživatele
+     * @param int $id
+     * @return User
+     * @throws \Exception
+     */
+    public function getUser(int $id):User {
+        return $this->userRepository->find($id);
+    }
+
+    /**
      * Metóda pre získanie jedného konkrétneho produktu na základe jeho id
      * @param int $id
      * @return Product
@@ -82,6 +92,19 @@ class ProductsFacade {
         $product->url=$url;
 
         $this->productRepository->persist($product);
+    }
+
+    /**
+     * Metoda pro smazání produktu
+     * @param Product $product
+     * @return bool
+     */
+    public function deleteProduct(Product $product):bool {
+        try{
+            return (bool)$this->productRepository->delete($product);
+        }catch (\Exception $e){
+            return false;
+        }
     }
 
     /**

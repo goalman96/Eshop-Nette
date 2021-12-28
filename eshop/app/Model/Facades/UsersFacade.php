@@ -54,6 +54,17 @@ class UsersFacade{
     return $this->userRepository->find($id);
   }
 
+    /**
+     * Metoda pro vyhledání uživatelů
+     * @param array|null $params = null
+     * @param int $offset = null
+     * @param int $limit = null
+     * @return User[]
+     */
+    public function findUsers(array $params=null,int $offset=null,int $limit=null):array {
+        return $this->userRepository->findAllBy($params,$offset,$limit);
+    }
+
   /**
    * Metoda pro načtení jednoho uživatele podle e-mailu
    * @param string $email
@@ -72,6 +83,19 @@ class UsersFacade{
   public function saveUser(User &$user) {
     return (bool)$this->userRepository->persist($user);
   }
+
+    /**
+     * Metoda pro smazání užvatele
+     * @param User $user
+     * @return bool
+     */
+    public function deleteUser(User $user):bool {
+        try{
+            return (bool)$this->userRepository->delete($user);
+        }catch (\Exception $e){
+            return false;
+        }
+    }
 
   /**
    * Metoda pro nalezení či zaregistrování uživatele podle facebookId, která vrací SimpleIdentity použitelnou pro přihlášení uživatele

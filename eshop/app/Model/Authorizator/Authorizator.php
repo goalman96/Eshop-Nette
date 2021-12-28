@@ -23,11 +23,12 @@ class Authorizator extends \Nette\Security\Permission {
   public function isAllowed($role=self::ALL, $resource=self::ALL, $privilege=self::ALL):bool {
 
     //TODO tady mohou být kontroly pro jednotlivé entity
-    if ($resource instanceof Category){
-      return $this->categoryResourceIsAllowed($role, $resource, $privilege);
-    }
-
-    return parent::isAllowed($role, $resource, $privilege);
+      return true;
+//    if ($resource instanceof Category){
+//      return $this->categoryResourceIsAllowed($role, $resource, $privilege);
+//    }
+//
+//    return parent::isAllowed($role, $resource, $privilege);
   }
 
   private function categoryResourceIsAllowed($role, Category $resource, $privilege){
