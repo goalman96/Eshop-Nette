@@ -4,11 +4,10 @@ namespace App\AdminModule\Components\ProductEditForm;
 
 /**
  * Interface ProductEditFormFactory
- * @package App\AdminModule\Components\ProductEditForm;
+ * @package App\AdminModule\Components\ProductEditForm
  */
+interface ProductEditFormFactory{
 
-interface ProductEditFormFactory {
-
-    public function create():ProductEditForm;
+  public function create():ProductEditForm;
 
 }

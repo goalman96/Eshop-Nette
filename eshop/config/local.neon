@@ -1,14 +1,14 @@
 parameters:
     mailFrom:
-        email: 'vont02@vse.cz'
-        name: 'vont02 eshop'
+        email: 'xname@vse.cz'
+        name: 'xname eshop'
 
     database:
         driver: mysqli
         host: localhost
-        username: vont02
-        password: 'ufiehee7Aef4AeVi4d'
-        database: vont02
+        username: reps02
+        password: 'cheixee7wae7shithe'
+        database: reps02
         encoding: utf8
         charset: utf8mb4
 

@@ -17,16 +17,6 @@ class ProductsFacade {
     }
 
     /**
-     * Metoda pro načtení jednoho uživatele
-     * @param int $id
-     * @return User
-     * @throws \Exception
-     */
-    public function getUser(int $id):User {
-        return $this->userRepository->find($id);
-    }
-
-    /**
      * Metóda pre získanie jedného konkrétneho produktu na základe jeho id
      * @param int $id
      * @return Product
@@ -69,42 +59,27 @@ class ProductsFacade {
         if(empty($product->url)) {
             $baseUrl=Strings::webalize($product->title);
         } else {
-            $baseUrl=$product->title;
+            $baseUrl=$product->url;
         }
 
         $urlNumber=1;
         $url=$baseUrl;
-        $productId= isset($product->productId) ? $product->productId : null;
+        $productId = isset($product->productId)?$product->productId:null;
 
-        try {
-            while($existingProduct = $this->getProductByUrl($url)) {
-                if($existingProduct->productId=$productId) {
+        try{
+            while ($existingProduct = $this->getProductByUrl($url)){
+                if ($existingProduct->productId==$productId){
                     $product->url=$url;
                     break;
                 }
                 $urlNumber++;
                 $url=$baseUrl.$urlNumber;
             }
-        } catch (\Exception $exception) {
-
+        }catch (\Exception $e){
         }
-
         $product->url=$url;
 
         $this->productRepository->persist($product);
-    }
-
-    /**
-     * Metoda pro smazání produktu
-     * @param Product $product
-     * @return bool
-     */
-    public function deleteProduct(Product $product):bool {
-        try{
-            return (bool)$this->productRepository->delete($product);
-        }catch (\Exception $e){
-            return false;
-        }
     }
 
     /**
