@@ -3,9 +3,8 @@ name: Deployment to repsO2 server
 on:
   push:
     branches:
-      - repsO2*
-    branches-ignore:
-      - main
+      - 'repsO2*'
+      - '!main'
   workflow_dispatch:
 
 jobs:

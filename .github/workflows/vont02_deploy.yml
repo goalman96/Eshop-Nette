@@ -3,7 +3,8 @@ name: Deployment to vont02 server
 on:
   push:
     branches:
-      - vont02*
+      - 'vont02*'
+      - '!main'
     branches-ignore:
       - main
   workflow_dispatch:
