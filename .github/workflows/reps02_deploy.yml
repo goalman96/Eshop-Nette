@@ -11,7 +11,7 @@ jobs:
   deploy_job:
     name: Deploy to repsO2
     runs-on: ubuntu-latest
-    if: ${{ github.push.pusher.name == 'goalman96' || github.  }}
+    if: ${{ github.push.pusher.name == 'goalman96' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
