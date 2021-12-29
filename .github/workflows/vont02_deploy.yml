@@ -1,10 +1,6 @@
 name: Deployment to vont02 server
 
 on:
-#  push:
-#    branches:
-#      - 'vont02*'
-#      - '!main'
   workflow_dispatch:
 
 jobs:
