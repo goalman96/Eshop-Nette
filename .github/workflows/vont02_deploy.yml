@@ -11,7 +11,6 @@ jobs:
   deploy_job:
     name: Deploy to vont02
     runs-on: ubuntu-latest
-    if: ${{ github.push.pusher.name == 'goalman96' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
